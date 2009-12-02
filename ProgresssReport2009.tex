@@ -1,0 +1,86 @@
+\documentclass[a4paper,twoside,abstract=true,english,DIV=calc]{scrartcl}
+
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{siunitx}
+\usepackage{svn-multi}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{scrtime}
+\usepackage{lipsum}
+\usepackage[numbers,square,sort&compress]{natbib}
+%\usepackage{setspace}% to set doublespacing or some other ugly typographic crutch.
+  %\doublespacing
+  %\onehalfspacing
+  %\singlespacing
+
+\usepackage{lineno}
+	\linenumbers
+	%%\pagewiselinenumbers
+	\modulolinenumbers[2]
+\usepackage[disable]{todonotes}		% [disable]
+\usepackage[backref]{hyperref}
+	\hypersetup{colorlinks=false,%
+		pdfauthor={David Haberthür},%
+		pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
+		pdfsubject={Progress Report},%
+		pdfkeywords={keyword1, keyword2},%
+		pdfborder={0 0 0},% > no border around links, but...
+		colorlinks=true % ... colored (true > no border, use "false" for final output)
+		}
+\usepackage[all]{hypcap}% make hyperref work nicely with captions
+
+%% Subversion Information
+\svnidlong
+{$HeadURL$}
+{$LastChangedDate$}
+{$LastChangedRevision$}
+{$LastChangedBy$}
+\svnid{$Id$} 
+
+\pagestyle{fancy}
+%%
+\cfoot{}
+\rfoot{}
+%%
+\fancyhead{}
+\fancyfoot{}
+\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and in now on revision \svnkw{LastChangedRevision}.}}
+
+\newcommand{\imsize}{\linewidth}
+
+\title{Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009}
+\subtitle{(SVN-revision: \svnkw{LastChangedRevision}, compiled \today, \thistime)}
+\author{David Haberthür}
+\date{\today}
+
+\begin{document}
+\maketitle
+\todo{write the document!}
+
+\begin{abstract}
+Abstract
+\end{abstract}
+
+\tableofcontents
+
+\section{first section}
+\lipsum[1]
+
+\section{second section}
+\lipsum[1]
+
+\section{third section}
+\lipsum[1]~\cite{Haberthuer2009}
+
+\bibliographystyle{unsrtnat}
+\bibliography{../../references}
+
+\appendix
+\section{appendix}
+\lipsum[1]
+
+\end{document}
