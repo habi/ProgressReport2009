@@ -1,4 +1,4 @@
-\documentclass[a4paper,twoside,abstract=true,english,DIV=calc]{scrartcl}
+\documentclass[a4paper,twoside,english,DIV=calc]{scrartcl}
 
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
@@ -23,12 +23,12 @@
 	\modulolinenumbers[2]
 \usepackage[disable]{todonotes}		% [disable]
 \usepackage[backref]{hyperref}
-	\hypersetup{colorlinks=false,%
-		pdfauthor={David Haberthür},%
-		pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
-		pdfsubject={Progress Report},%
-		pdfkeywords={keyword1, keyword2},%
-		pdfborder={0 0 0},% > no border around links, but...
+	\hypersetup{%
+	%	pdfauthor={David Haberthür},%
+	%	pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
+	%	pdfsubject={Progress Report},%
+	%	pdfkeywords={keyword1, keyword2},%
+		pdfpagemode=UseThumbs,
 		colorlinks=true % ... colored (true > no border, use "false" for final output)
 		}
 \usepackage[all]{hypcap}% make hyperref work nicely with captions
@@ -42,13 +42,9 @@
 \svnid{$Id$} 
 
 \pagestyle{fancy}
-%%
-\cfoot{}
-\rfoot{}
-%%
-\fancyhead{}
 \fancyfoot{}
-\fancyfoot[C]{\tiny{this document (\url{\svnkw{HeadURL}}) was last saved on \svnkw{LastChangedDate} by \svnkw{LastChangedBy} and in now on revision \svnkw{LastChangedRevision}.}}
+\fancyfoot[OR]{\tiny \href{\svnkw{HeadURL}}{Revision \svnkw{LastChangedRevision}} last saved on \svnkw{LastChangedDate} --- page \thepage}
+\fancyfoot[EL]{\tiny page \thepage --- \href{\svnkw{HeadURL}}{Revision \svnkw{LastChangedRevision}} last saved on \svnkw{LastChangedDate}}
 
 \newcommand{\imsize}{\linewidth}
 
@@ -59,15 +55,75 @@
 
 \begin{document}
 \maketitle
-\todo{write the document!}
-
-\begin{abstract}
-Abstract
-\end{abstract}
-
-\tableofcontents
 
 \section{Overview}
-\lipsum
+Quick overview over what has been done in the last year.
+\begin{itemize}
+\item Multiple Talks (ATS, Forschungsdreieck Lunge, SLS Symposium)
+\item Three conferences
+\end{itemize}
+
+Multimodal Imaging $>$ Sebastien
+
+Detection of Nanoparticles $>$ PhaseContrast
+
+WideFieldScanning
+\begin{itemize}
+\item Work on integration of WideFieldScanning into Beamline is pending. But it's not my problem anymore..
+\item big (huge if stacked) volumes are scanned routinely
+\item result: acinus is growing over development, that's why we've scanned stacked WFS
+\end{itemize}
+
+Structural Information
+\begin{itemize}
+\item Skeletonization is still problematic. Not in terms of Algorithm, but in terms of biological correctness. Wahlfachpraktikums-Studenten worked on this. Study with "real" stereological counting is planned (Wahlfach2010)
+\item Meeting with Fraunhofer MeVis in October for adaptation of algorithm from tubular to other structures. Scanco-Algorithm at PSI can NOT do anything > Work of Xris for paper
+\item extraction of information, we've seen that the acinus gets bigger over development > idea for next publication
+\end{itemize}
+
+\section{SRXTM}
+In total 6 Beamtimes @ PSI during 2009:
+
+\begin{tabular}{clc}
+Beamtime & Details & Total\\
+09a & 15 Mariani, 1 Pins, 5 Normal, 4 WFS (12) & 25 (33)\\
+09b & 3 Grid, 7 MBA, 12 Normal, 4 WFS (12) & 26 (34)\\
+09c & 2 Normal, 12 WFS (36) & 14 (38)\\
+09d & 1 Normal, 3 Stacked (17), 6 WFS (18), 2 Stacked MBA (6) & 30 (42)\\
+09e & Gold (4 Normal, 4 Edge, 4 MBA), 2 WFS (6), Stockx 18 Stacked (36) & 50 (54)\\
+09f & 13 Stacked Sophie, 11 WFS (33), 1 Normal & 25 (47)\\
+\end{tabular}
+
+\subsection{Collaborations with Mariani}
+Alteration of Thickness Distribution > show DTF-data?
+
+\subsection{Gold Nanoparticles Kreyling}
+MBA, detection of particles in unstained samples
+
+\subsection{Sophie}
+Lung stretching
+
+\subsection{Wide Field Scanning}
+\begin{itemize}
+\item Samples for testing hypothesis about growing acinus size. Routine-application at the beamline now (for us, implementation still pending)
+\item Several different scans of the same sample performed > simulation \& qualityplot
+\item Difference only in bigger diameters. Show DTF from paper? (might also be positioning error)
+\end{itemize}
+
+\section{Skeletonization}
+Extraction of Number of Nodes and Number of Edges - matching with volume-fraction to gain information about structural alteration during lung development
+
+\section{Multimodal Imaging}
+Proceeding has been published~\cite{Haberthuer2009} published $\rightarrow$ Sebastien Barré (Ex-Master-Student and now Ph.\,D.-Student) is working on it now. Sebastiens Masterthesis - Publication as a paper planned
+
+\section{Publications}
+\subsection{WFS-Paper}
+Problem with corrections, holidays and new data. Delayed paper is in final editing stages, submission delayed because of multiple problems. Editing by JCS, MS and CH took long. ATS and leaving it for a month. First final draft rejected just before holidays, waiting for more data for $>$2 months.
+
+\subsection{Sausbier}
+Manuscript submitted for NatMed
+
+\bibliographystyle{unsrtnat}
+\bibliography{../../references}
 
 \end{document}
