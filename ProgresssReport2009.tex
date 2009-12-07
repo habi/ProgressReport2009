@@ -10,24 +10,21 @@
 \usepackage{fancyhdr}
 \usepackage{microtype}
 \usepackage{scrtime}
-\usepackage{lipsum}
+\usepackage{tikz}
+\usepackage{pgfplots}
 \usepackage[numbers,square,sort&compress]{natbib}
-%\usepackage{setspace}% to set doublespacing or some other ugly typographic crutch.
-  %\doublespacing
-  %\onehalfspacing
-  %\singlespacing
-
+\usepackage{booktabs}
+\usepackage{todonotes}
 \usepackage{lineno}
 	\linenumbers
-	%%\pagewiselinenumbers
 	\modulolinenumbers[2]
-\usepackage[disable]{todonotes}		% [disable]
+
 \usepackage[backref]{hyperref}
 	\hypersetup{%
-	%	pdfauthor={David Haberthür},%
-	%	pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
-	%	pdfsubject={Progress Report},%
-	%	pdfkeywords={keyword1, keyword2},%
+		pdfauthor={David Haberthür},%
+		pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
+		pdfsubject={Progress Report},%
+		pdfkeywords={progress report, graduate school, report},%
 		pdfpagemode=UseThumbs,
 		colorlinks=true % ... colored (true > no border, use "false" for final output)
 		}
@@ -48,6 +45,9 @@
 
 \newcommand{\imsize}{\linewidth}
 
+\newlength\imagewidth
+\newlength\imagescale
+
 \title{Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009}
 \subtitle{(SVN-revision: \svnkw{LastChangedRevision}, compiled \today, \thistime)}
 \author{David Haberthür}
@@ -57,13 +57,19 @@
 \maketitle
 
 \section{Overview}
-Quick overview over what has been done in the last year.
+Again, this year the focus of my work is on on three-dimensional datasets obtained with high resolution synchrotron radiation based x-ray tomographic microscopy (SRXTM) at the beamline for TOmographic Microscopy and Coherent rAdiology experimenTs (TOMCAT) at the Swiss Light Source (SLS), Paul Scherrer Institute (PSI) in Villigen, Switzerland. During several beamtimes (details see section~\ref{sec:srxtm}) we recorded datasets of rat lung samples with different characteristics~\todo{Sophie erwähnen} and bone samples for a collaboration (see manuscript in preparation in section~\ref{sec:publications}). In the past year I have presented my work in multiple talks at both national and international conferences and have presented several posters about the topics I have been working on.
+
+The method for increasing the field of view of the TOMCAT beamline presented in the last progress report has been routinely applied for the imaging of rat lung samples by our group and is still pending the full implementation as a module into the beamline workflow at the SLS. A lot of my working time has been spent on the preparation of a manuscript for submission to the Journal of Synchrotron Radiation. This manuscript is in the very last editing stages.
+
+The extraction of the airway structure of the terminal airways has been refined. - Last year presented small acinus - now much bigger - other problems (not whole acinus in dataset $\rightarrow$ stacked wide field scan) - work/meeting with MeVis
+
+This year, 
 \begin{itemize}
 \item Multiple Talks (ATS, Forschungsdreieck Lunge, SLS Symposium)
 \item Three conferences
 \end{itemize}
 
-Multimodal Imaging $>$ Sebastien
+Multimodal Imaging: Proceeding published, Sebastien did Master Thesis on semi-automatic registration of different imaging modalities.
 
 Detection of Nanoparticles $>$ PhaseContrast
 
@@ -81,18 +87,29 @@ Structural Information
 \item extraction of information, we've seen that the acinus gets bigger over development > idea for next publication
 \end{itemize}
 
-\section{SRXTM}
+\section{SRXTM}\label{sec:srxtm}
 In total 6 Beamtimes @ PSI during 2009:
-
+\begin{table}[htp]
+\centering
+\scriptsize
 \begin{tabular}{clc}
+\toprule
 Beamtime & Details & Total\\
+\midrule
 09a & 15 Mariani, 1 Pins, 5 Normal, 4 WFS (12) & 25 (33)\\
 09b & 3 Grid, 7 MBA, 12 Normal, 4 WFS (12) & 26 (34)\\
 09c & 2 Normal, 12 WFS (36) & 14 (38)\\
 09d & 1 Normal, 3 Stacked (17), 6 WFS (18), 2 Stacked MBA (6) & 30 (42)\\
 09e & Gold (4 Normal, 4 Edge, 4 MBA), 2 WFS (6), Stockx 18 Stacked (36) & 50 (54)\\
 09f & 13 Stacked Sophie, 11 WFS (33), 1 Normal & 25 (47)\\
+\cmidrule(lr){3-3}
+& & 170 (248)\\
+\bottomrule
 \end{tabular}
+\normalsize
+\caption{Details of all Beamtimes}
+\label{tab:srxtm}
+\end{table}
 
 \subsection{Collaborations with Mariani}
 Alteration of Thickness Distribution > show DTF-data?
@@ -110,18 +127,58 @@ Lung stretching
 \item Difference only in bigger diameters. Show DTF from paper? (might also be positioning error)
 \end{itemize}
 
+For further analysis four regions of interest with a side length of 256 pixels (at \SI{1.48}{\micro\meter\per pixel}, thus containing a volume of \SI{1.678e7}{voxels}) have been extracted for each of the protocols B, L and T. The three-dimensional placement of these ROIs inside the sample is shown in figure~\ref{fig:roi3d}. Each of the ROIs has been binarized using an algorithmically determined threshold~\cite{Otsu1979} and small particles inside the segmented airspace lumen have been removed using a connected components analysis. Subsequently, the euclidean distance transformation has been calculated for each thresholded ROI.
+
+\renewcommand{\imsize}{\columnwidth}
+\begin{figure}[htp]
+	\centering
+	\pgfmathsetlength{\imagewidth}{\imsize}
+	\pgfmathsetlength{\imagescale}{\imagewidth/1452}
+	\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+		\def\x{297} % scalebar-x at golden ratio of x=1452px
+		\def\y{684} % scalebar-y at 90% of height of y=760px
+		\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0)
+	     {\includegraphics[width=\imagewidth]{img/ROIs-3d}};
+		% 1357px = 4.0138mm > 100px = 296um > 169px = 500um
+		% \draw[|-|,thick,red] (83,517) -- (1425,719) node [sloped,midway,below] {\SI{4.0138}{\milli\meter} (2712px)};
+		\draw[|-|,thick] (\x,\y) -- (\x+169,\y) node [midway, above] {\SI{500}{\micro\meter}};
+		%\draw[|-|,thick, white] (\x+645,\y-180) -- (\x+645+128,\y-180) node [midway, below] {\SI{256}{pixels}};
+		\draw ( 368,360) node [fill=white, semitransparent] {ROI 1} node {ROI 1};
+		\draw (1038,312) node [fill=white, semitransparent] {ROI 2} node {ROI 2};
+		\draw ( 767,413) node [fill=white, semitransparent] {ROI 3} node {ROI 3};
+		\draw ( 684,139) node [fill=white, semitransparent] {ROI 4} node {ROI 4};
+		\end{tikzpicture}%
+	\caption{Overview of the placement of the four regions of interest where the histogram of the euclidean distance transformation distribution has been calculated. Grey: Semitransparent volume rendering of the lung tissue sample. Red: Four regions of interest, extracted to calculate the distance transformation, each with a side-length of 256 pixels. The labels of the ROIs conform to the legends in figure~\ref{fig:DTFplots}.}%		
+	\label{fig:roi3d}
+\end{figure}
+
+For comparison, the histogram of the euclidean distance transformation has been plotted for all four regions of interest in each protocol (B, L and T).
+
+\renewcommand{\imsize}{.309\columnwidth}
+\begin{figure}[htp]
+	\centering
+	\begin{tabular}{cc}
+		\input{img/edited-plot-roi1}&%
+		\input{img/edited-plot-roi2}\\%
+		\input{img/edited-plot-roi3}&%
+		\input{img/edited-plot-roi4}%
+	\end{tabular}
+	\caption{Histogram-Plots for each of the of 4 ROIs, each showing the histogram of the distance transformation for the protocols B, L and T.}%
+	\label{fig:DTFplots}
+\end{figure}
+
 \section{Skeletonization}
 Extraction of Number of Nodes and Number of Edges - matching with volume-fraction to gain information about structural alteration during lung development
 
 \section{Multimodal Imaging}
 Proceeding has been published~\cite{Haberthuer2009} published $\rightarrow$ Sebastien Barré (Ex-Master-Student and now Ph.\,D.-Student) is working on it now. Sebastiens Masterthesis - Publication as a paper planned
 
-\section{Publications}
+\section{Publications}\label{sec:publications}
 \subsection{WFS-Paper}
 Problem with corrections, holidays and new data. Delayed paper is in final editing stages, submission delayed because of multiple problems. Editing by JCS, MS and CH took long. ATS and leaving it for a month. First final draft rejected just before holidays, waiting for more data for $>$2 months.
 
 \subsection{Sausbier}
-Manuscript submitted for NatMed
+Manuscript submitted for NatMed\cite{Sausbier2009b}
 
 \bibliographystyle{unsrtnat}
 \bibliography{../../references}
