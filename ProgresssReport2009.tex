@@ -1,6 +1,18 @@
 \documentclass[a4paper,twoside,DIV=calc]{scrartcl}
 
-\usepackage{graphicx}
+\newif\ifhtml
+ 
+\htmlfalse
+%\htmltrue
+
+\ifhtml % In case of web format output...
+	\def\pgfsysdriver{pgfsys-tex4ht.def}
+	\usepackage[dvips]{graphicx}
+	\DeclareGraphicsExtensions{.png}
+\else
+	\usepackage{graphicx}
+\fi
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[english]{babel}
@@ -12,22 +24,24 @@
 \usepackage{scrtime}
 \usepackage{tikz}
 \usepackage{pgfplots}
-\usepackage[numbers,square,sort&compress]{natbib}
 \usepackage{booktabs}
-\usepackage{todonotes}
-\usepackage{lineno}
-	\linenumbers
-	\modulolinenumbers[2]
-\usepackage{setspace,savetrees}
-	\onehalfspacing
-\usepackage[backref]{hyperref}
-	\hypersetup{%
-		pdfauthor={David Haberthür},%
-		pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
-		pdfsubject={Progress Report},%
-		pdfkeywords={progress report, graduate school, report},%
-		pdfpagemode=UseThumbs,
-		colorlinks=true	}
+\usepackage[numbers,square,sort&compress]{natbib}
+\ifhtml
+	\usepackage[disable]{todonotes}
+\else
+	\usepackage{todonotes}
+	\usepackage{lineno}\linenumbers\modulolinenumbers[2]
+	\usepackage{setspace,savetrees}\doublespacing%\onehalfspacing
+	\usepackage{hyperref}
+		\hypersetup{%
+			pdfauthor={David Haberth\"{u}r},%
+			pdftitle={Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009},%
+			pdfsubject={Progress Report},%
+			pdfkeywords={progress report, graduate school, report},%
+			pdfpagemode=UseThumbs,
+			%colorlinks=true%
+			}
+\fi
 
 % Subversion Information
 \svnidlong
@@ -48,15 +62,18 @@
 \newlength\imagescale
 
 \title{Progress Report for the Graduate School in Cellular and Biomedical Sciences - 2009}
-\subtitle{(SVN-revision: \svnkw{LastChangedRevision}, compiled \today, \thistime)}
-\author{David Haberthür}
+\ifhtml
+\else
+	\subtitle{(SVN-revision: \svnkw{LastChangedRevision}, compiled \today, \thistime)}
+\fi
+\author{David Haberth\"{u}r}
 \date{\today}
 
 \begin{document}
 \maketitle
 
 \section{Introduction}
-Again, this year the focus of my work is on three-dimensional datasets obtained with high resolution synchrotron radiation based x-ray tomographic microscopy (SRXTM) at the beam line for TOmographic Microscopy and Coherent rAdiology experimenTs (TOMCAT) at the Swiss Light Source (SLS), Paul Scherrer Institute (PSI) in Villigen, Switzerland. During several beam times (details see section~\ref{sec:srxtm}) we recorded datasets of rat and mice lung samples with different characteristics. In the past year I have presented my work in multiple talks at both national and international conferences and have presented several posters about the topics I have been working on, have prepared one manuscript as a first author and coauthored one publication (details are listed in the Word document ProgressReport2009.doc).
+Again, this year the focus of my work was on three-dimensional datasets obtained with high resolution synchrotron radiation based x-ray tomographic microscopy (SRXTM) at the beam line for TOmographic Microscopy and Coherent rAdiology experimenTs (TOMCAT) at the Swiss Light Source (SLS), Paul Scherrer Institute in Villigen, Switzerland. During several beam time shifts we recorded datasets of rat and mice lung samples with different characteristics. In the past year I gave multiple talks at both national and international conferences and have presented several posters on the topics I have been working on, have prepared one manuscript as a first author and coauthored one publication (details are listed in the Word document ProgressReport2009.doc).
 
 \section{SRXTM}\label{sec:srxtm}
 During 6 allotted beam times tomographic datasets of 170 samples have been obtained, an increased output compared to the output presented in the last progress report. In total our group performed 248 single scans; the difference between amount of tomographic datasets and single scans again arises through the use of the so called wide field scanning (see section~\ref{sec:wfs}), where multiple single scans are merged to obtain tomographic datasets with increased field of view at the same pixel-resolution as the single scans.
@@ -68,10 +85,10 @@ Apart from 4 scans for calibrating the tomographic beam line with electron micro
 % 13 Sophie
 76) have been scanned as part of four ongoing collaborations with external partners. The collaborating groups are:
 \begin{description}
-\item[The Lung Biology Center, Harvard Medical School] In the ongoing collaboration with Thomas Mariani we scanned 15 samples of PPAR Knockout mice. The tomographic datasets are used to study the alterations of the airway diameter in the mice. A paper of the findings is in preparation.
-\item[GSF-Institute of Inhalation Biology, Munich] Twelve samples of rat lungs with inhaled gold particles (\SI{200}{\nano\meter} and \SI{700}{\nano\meter}) have been scanned. The tomographic datasets are used for a study on a bronchopulmonary disease model as a preparation of an application of the NFP 64 «Chancen und Risiken von Nanomaterialien». Generally, we use absorption-contrast tomography, but for these samples we also started to use phase-contrast tomography, which enables us to use unstained lung samples, which permits us to perform immunostaining and other biologically active test after obtaining tomographic datasets, something which is not possible with the uranyl-acetate-stained lungs samples used for absorption-contrast tomography.
-\item[Medicine, Nursing and Health Sciences, Monash University] For a study to investigate the effects of different activated Protein C isoforms and hyperoxia exposure on the pulmonary vasculature and capillary density of rat lungs we scanned 36 samples. 
-\item[Lehrstuhl für Numerische Mechanik, TU Munich] We scanned 13 rat lung samples for a study on the mechanics of alveolar tissue under breathing and motion stress.
+\item[The Lung Biology Center, Harvard Medical School, USA] In the ongoing collaboration with Thomas Mariani we scanned 15 samples of PPAR Knockout mice. The tomographic datasets are used to study the alterations of the airway diameter in these mice. A paper of the findings is in preparation.
+\item[GSF-Institute of Inhalation Biology, Munich, Germany] We scanned twelve rat lung samples where the rats have inhaled gold particles (\SI{200}{\nano\meter} and \SI{700}{\nano\meter}). These tomographic datasets are used for a study on a bronchopulmonary disease model in preparation for an application to the NFP 64 «Chancen und Risiken von Nanomaterialien». Generally, we use absorption-contrast tomography, but for these samples we also started to use phase-contrast tomography. This enables us to use unstained lung samples, allowing for immunostaining and other biologically active test after tomographic image acquisition, something which is not possible with the uranyl-acetate-stained lungs samples used for absorption-contrast tomography.
+\item[Medicine, Nursing and Health Sciences, Monash University, Australia] For a study to investigate the effects of different activated Protein C isoforms and hyperoxia exposure on the pulmonary vasculature and capillary density of rat lungs we scanned 36 samples. 
+\item[Lehrstuhl für Numerische Mechanik, TU Munich, Germany] We scanned 13 rat lung samples for a study on the mechanics of alveolar tissue under breathing and motion stress.
 \end{description}
 
 %\begin{table}[htp]
@@ -96,49 +113,61 @@ Apart from 4 scans for calibrating the tomographic beam line with electron micro
 %\label{tab:srxtm}
 %\end{table}
 \section{Wide field scanning}\label{sec:wfs}
-The method for increasing the field of view of the TOMCAT beam line presented in the last progress report has been routinely applied for the imaging of more than 30 rat lung samples by our group. The method is still pending the full implementation into the beam line workflow at the SLS as a module which other groups could use. A manuscript for submission to the Journal of Synchrotron Radiation, which explains the concepts and implementation of the so-called wide field x-ray tomographic microscopy (WF-SRXTM) at the TOMCAT beamline is in the last editing steps and should be ready for submission in January 2010\todo{really?}. The technical side of the wide field scanning method has been covered, future work will focus on the answering of biological questions using this method. With tomographic datasets obtained with WF-SRXTM we can now visualize entire rat lung acini\footnote{The acinus is defined as the complex of alveolated airways distal to the terminal bronchiole \cite{Rodriguez1987}, in which the gas-exchange in the lung takes place.}, something which was not generally possible using the classic tomographic acquisition method at TOMCAT, as can be seen in figure~\ref{fig:wfs-overview}.
+The method for increasing the field of view of the TOMCAT beam line first presented in my last progress report has been routinely applied for the imaging of more than 30 rat lung samples by our group. The method is still pending the full implementation into the beam line work flow at the SLS as a module for other groups to use.
+
+A manuscript for submission to the \href{http://journals.iucr.org/s/}{Journal of Synchrotron Radiation}, which explains the concepts and implementation of the so-called wide field x-ray tomographic microscopy (WF-SRXTM) at the TOMCAT beamline is in the last editing steps and should be ready for submission in January 2010\todo{really?}. The technical side of the wide field scanning method has been covered, future work will focus on the answering of biological questions using this method. Using tomographic datasets obtained with WF-SRXTM we can now visualize entire rat lung acini\footnote{The acinus is defined as the complex of alveolated airways distal to the terminal bronchiole \cite{Rodriguez1987}, in which the gas-exchange in the lung takes place.}, something which was not generally possible using the classic tomographic acquisition method at TOMCAT, as can be seen in figure~\ref{fig:wfs-overview}.
 
 \renewcommand{\imsize}{0.5\linewidth}
-\begin{figure}
+\begin{figure}[htp]
 	\centering
 	\subfloat[Conventional SRXTM]{%
-		\pgfmathsetlength{\imagewidth}{\imsize}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/1202}%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\def\x{293} % scalebar-x at golden ratio of x=1202px
-			\def\y{612} % scalebar-y at 90% of height of y=680px
-			\node[anchor=north west,inner sep=0pt, outer sep=0pt] at (0,0)
-				{\includegraphics[width=\imagewidth]{img/R108C04C-overview-s2}};
-			\draw[|-|,thick] (\x,\y) -- (\x+116,\y) node [midway, above] {\SI{500}{\micro\meter}};
-		\end{tikzpicture}%
+		\ifhtml
+		\else	
+			\pgfmathsetlength{\imagewidth}{\imsize}%
+			\pgfmathsetlength{\imagescale}{\imagewidth/1202}%
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				\def\x{293} % scalebar-x at golden ratio of x=1202px
+				\def\y{612} % scalebar-y at 90% of height of y=680px
+				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0)
+					{\includegraphics[width=\imagewidth]{img/R108C04C-overview-s2}};
+				\draw[|-|,thick] (\x,\y) -- (\x+116,\y) node [midway, above] {\SI{500}{\micro\meter}};
+			\end{tikzpicture}%
+		\fi
 		\label{subfig:srxtm}%
 		}%
 	\subfloat[Wide Field SRXTM with enhanced field of view]{%
-		\pgfmathsetlength{\imagewidth}{\imsize}%
-		\pgfmathsetlength{\imagescale}{\imagewidth/1202}%
-		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-			\def\x{243} % scalebar-x at golden ratio of x=1202px
-			\def\y{612} % scalebar-y at 90% of height of y=680px
-			\node[anchor=north west,inner sep=0pt, outer sep=0pt] at (0,0)
-				{\includegraphics[width=\imagewidth]{img/R108C04C-overview-merge}};
-			\draw[|-|,thick] (\x,\y) -- (\x+232,\y) node [midway, above] {\SI{1}{\milli\meter}};
-		\end{tikzpicture}%
+		\ifhtml
+		\else
+			\pgfmathsetlength{\imagewidth}{\imsize}%
+			\pgfmathsetlength{\imagescale}{\imagewidth/1202}%
+			\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+				\def\x{243} % scalebar-x at golden ratio of x=1202px
+				\def\y{612} % scalebar-y at 90% of height of y=680px
+				\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0)
+					{\includegraphics[width=\imagewidth]{img/R108C04C-overview-merge}};
+				\draw[|-|,thick] (\x,\y) -- (\x+232,\y) node [midway, above] {\SI{1}{\milli\meter}};
+			\end{tikzpicture}%
+		\fi
 		\label{subfig:wf-srxtm}%
 		}%
-	\caption{Comparison of tomographic datasets obtained with conventional SRXTM and WF-SRXTM, respectively. Both visualizations show the same rat lung sample, obtained at postnatal day 4. Independent airway segments have been extracted using a region growing algorithm and are visualized using colored isosurfaces of the tissue-airspace-boundary. With conventional SRXTM (fig.~\ref{subfig:srxtm}) we see that the red airway segment is not fully contained in the total field of view of approx.\,1.52$\times$1.52$\times$\SI{1.52}{\milli\meter} (at a voxel size of \SI{1.48}{\micro\meter}), we thus cannot fully analyze it. Likewise for the green segment; it is only partially contained in the field of view. Increasing the field of view approximately three-fold in lateral direction to 3.7$\times$3.7$\times$\SI{1.52}{\milli\meter} %881x2516x1024px
-(voxel size of \SI{1.48}{\micro\meter}, fig~\ref{subfig:wf-srxtm}) makes it possible to segment three independent airway segments in the tomographic dataset. Both the green and red airway segment contain one or several full acini, the yellow airway segment contains one partial acinus.%
+	\caption{Comparison of tomographic datasets obtained with conventional SRXTM and WF-SRXTM, respectively. Both visualizations show the same rat lung sample, obtained at postnatal day 4. Independent airway segments have been extracted using a region growing algorithm and are visualized using colored isosurfaces of the tissue-airspace-boundary. With conventional SRXTM (fig.~\ref{subfig:srxtm}) we see that the red airway segment is not fully contained in the total field of view of approximately 1.52$\times$1.52$\times$\SI{1.52}{\milli\meter} (at a voxel size of \SI{1.48}{\micro\meter}), we thus cannot fully analyze it. Likewise for the green segment; it is only partially contained in the field of view. Increasing the field of view approximately three-fold in lateral direction to 3.7$\times$3.7$\times$\SI{1.52}{\milli\meter} %881x2516x1024px
+(fig~\ref{subfig:wf-srxtm}) makes it possible to extract three independent airway segments in the tomographic dataset. Both the green and red airway segment contain one or several full acini, the yellow airway segment contains one partial acinus.%
 }%
 \label{fig:wfs-overview}%
 \end{figure}
 
-I have developed a range of scanning protocols for the end-user to choose from. The decision for a particular scannign protocol is made on a user-defined balance between acquisition time and image quality. One rat lung sample has been scanned using a set of 19 such protocols to thoroughly assess differences in reconstruction quality. We have shown that---as expected---the reconstruction quality is decreased for very fast scans, but that local structural parameter of the airway tree like diameter are not significantly changed and automatic segmentation of the tissue-airspace-boundary is still possible.
+I have developed a range of scanning protocols for the end-user to choose from. The decision for a particular scanning protocol is made on a user-defined balance between acquisition time and image quality. One rat lung sample has been scanned using a set of 19 such protocols to thoroughly assess differences in reconstruction quality. We have shown that---as expected---the reconstruction quality is decreased for very fast scans, but that local structural parameter of the airway tree like diameter are not changed and automatic segmentation of the tissue-airspace-boundary is still possible.
 
-Even with a reduction of the total scanning time by \SI{84}{\percent}, no discernible structural alterations are introduced in the tomographic dataset. To show this, four regions of interest with a side length of 256 pixels (at \SI{1.48}{\micro\meter\per pixel} have been extracted for three of the 19 protocols, once for the gold-standart protocol (B, taking in total \SI{87}{\minute}), once for a medium (L, \SI{43}{\min} and once for a very fast protocol (T, \SI{12}{\min}) . The three-dimensional placement of these ROIs inside the sample is shown in figure~\ref{fig:roi3d}. Each of the ROIs has been binarized using an algorithmically determined threshold~\cite{Otsu1979} and small particles inside the segmented airspace lumen have been removed using a connected component labeling. Subsequently, the euclidean distance transformation has been calculated and plotted for each thresholded ROI and each of the three protocols. This distance transformation is 
+Even with a reduction of the total scanning time by \SI{84}{\percent}, no discernible structural alterations are introduced in the tomographic dataset. To show this, four regions of interest with a side length of 256 pixels (at \SI{1.48}{\micro\meter\per pixel}) have been extracted for three of the 19 protocols, once for the gold-standard protocol (B, total scanning time \SI{87}{\minute}), once for a medium (L, \SI{43}{\min}) and once for a very fast protocol (T, \SI{12}{\min}). The three-dimensional placement of these ROIs inside the sample is shown in figure~\ref{fig:roi3d}. Each of the ROIs has been binarized using an algorithmically determined threshold~\cite{Otsu1979} and small particles inside the segmented airspace lumen have been removed using a connected component labeling. Subsequently, the euclidean distance transformation has been calculated and plotted for each thresholded ROI and each of the three protocols (shown in figure	\ref{fig:DTFplots}).
+
+The distance transformation encodes the distance to the airway wall for of each pixel inside the airway lumen and is a measure of the airway diameter. Since every pixel inside the lumen is accounted for, I chose to show the distance transformations with a logarithmic scale for the pixel count, or else the differences would not be visible.
 
 \renewcommand{\imsize}{\columnwidth}
-\begin{figure}
+\begin{figure}[htp]
 	\centering
-	\pgfmathsetlength{\imagewidth}{\imsize}%
+	\ifhtml
+	\else
+		\pgfmathsetlength{\imagewidth}{\imsize}%
 		\pgfmathsetlength{\imagescale}{\imagewidth/1563}%
 		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
 			\def\x{966-750} % scalebar-x at golden ratio of x=1563px
@@ -151,28 +180,32 @@ Even with a reduction of the total scanning time by \SI{84}{\percent}, no discer
 			\draw [anchor=south] (745,493) node [fill=white, semitransparent] {ROI 2} node {ROI 2};
 			\draw [anchor=south] (742,190) node [fill=white, semitransparent] {ROI 3} node {ROI 3};
 			\draw [anchor=south] (1069,380) node [fill=white, semitransparent] {ROI 4} node {ROI 4};
-		\end{tikzpicture}%
+		\end{tikzpicture}
+	\fi
 	\caption{Overview of the placement of the four regions of interest where the histogram of the euclidean distance transformation distribution has been calculated. Grey: Semitransparent volume rendering of the lung tissue sample. Red: Four regions of interest, extracted to calculate the distance transformation, each with a side-length of approx.\, \SI{380}{\micro\meter}. The labels of the ROIs conform to the legends in figure~\ref{fig:DTFplots}.}%		
 	\label{fig:roi3d}
 \end{figure}
 
 \renewcommand{\imsize}{0.5\linewidth}
-\begin{figure}
+\begin{figure}[htp]
 	\centering
+	\ifhtml
+	\else
 		\input{img/ROI-0523-0497-0743.tex}%
 		\input{img/ROI-1382-0546-0743.tex}\\%
 		\input{img/ROI-1324-0266-0289.tex}%
 		\input{img/ROI-1863-0237-0604.tex}%
+	\fi
 	\caption{Histogram-Plots for each of the of 4 ROIs, each showing the histogram of the distance transformation for three of the 19 scanned protocols. Note the logarithmic axis for the pixel count.}%
 	\label{fig:DTFplots}
 \end{figure}
 
-Only very minor differences in the airway diameter are introduced through the reduction of the scanning time (note the logarithmic axis for the voxel count), and this only in the lateral parts of the sample, where---for the fastest protocols--the sampling theorem is far from being satisfied. Further details on this analysis are in the manuscript I have prepared about the wide field SRXTM.
+Only very minor differences in the airway diameter are introduced through the reduction of the scanning time (again, note the logarithmic axis for the voxel count), and those differences are only visible in the lateral parts of the sample, where---for the fastest protocols--the sampling theorem is far from being satisfied (ROI 1 and 4). Further details on this analysis are in the manuscript on the wide field SRXTM~\cite{Haberthuer2010}\todo{attached to this report}.
 
-One result found with the visualization of rat lung acini over the postnatal lung development (day 4, 10, 21, 36 and 60 after birth) is that the acini seem to grow to a greater extent than predicted. Even if we have increased the visible sample volume nine-fold, we are still not able to enclose and fully visualize an entire rat lung acinus for postnatal days 36 and 60. Tomographic datasets with a three-fold increased lateral field of view only contain partial acini at these days. Recently, we thus recorded stacked WF-SRXTM scans, which increase the field of view both horizontally and vertically and plan to use these datasets for the study of the postnatal development of the acinar size.
+One result found with the visualization of rat lung acini over the postnatal lung development (day 4, 10, 21, 36 and 60 after birth) is that the acini seem to grow to a greater extent than predicted. Even if we have increased the visible sample volume nine-fold, we are still not able to enclose and fully visualize an entire rat lung acinus for postnatal days 36 and 60. For these days, tomographic datasets only contain partial acini, even with a three-fold increase in lateral field of view. Recently, we thus recorded stacked WF-SRXTM scans, which increase the field of view both horizontally and vertically and plan to use these datasets for the study of the postnatal development of the acinar size.
 
 \section{Multimodal Imaging}
-The manuscript attached to the last progress report has been published in the Journal of Physics~\cite{Haberthuer2009}. The initial workflow for multimodal imaging---the combination of the full, unconstricted three-dimensional information of SRXTM datasets with the ultrahigh resolution of transmission electron microscopy (TEM) images---has been refined by a master student in our group during a six-month master thesis. We are now able to routinely register datasets from two different imaging modalities. Two-dimensional ultrahigh resolution TEM slices without three-dimensional location information can now be matched with three-dimensional high-resolution SRXTM slices containing the unrestricted information on the exact location in the lung sample. This enables us to exactly study and visualize particle deposition both on a cellular level (e.g.\, uptake into epithelial cells) and on the airway tree level (e.g.\, particle deposition locations in the airway tree).
+The manuscript attached to the last progress report has been published in the Journal of Physics~\cite{Haberthuer2009}. The initial work flow for multimodal imaging---the combination of the full, unconstricted three-dimensional information of SRXTM datasets with the ultrahigh resolution of transmission electron microscopy (TEM) images---has been refined by a master student in our group during a six-month master thesis. We are now able to routinely register datasets from two different imaging modalities. Two-dimensional ultrahigh resolution TEM slices without three-dimensional location information can now be matched with three-dimensional high-resolution SRXTM slices containing the unrestricted information on the exact location in the lung sample. This enables us to exactly study and visualize particle deposition both on a cellular level (e.g.\, uptake into epithelial cells) and on the airway tree level (e.g.~particle deposition locations in the airway tree).
 
 \section{Structural Information}
 Multiple acinar airway skeletons have been generated from tomographic dataset as explained in my last progress report. Last year I worked on a manual method version of correcting loops and knots inside the extracted airway skeletons. Increasing both the volume of the datasets and resolution for the calculation of the airway skeletons resulted in airway descriptions containing more than \num{10000} nodes.
@@ -180,33 +213,36 @@ Multiple acinar airway skeletons have been generated from tomographic dataset as
 Figure~\ref{fig:skeleton} shows a skeletonization of multiple acini in a rat lung sample obtained at postnatal day 21 containing multiple airway segments containing one or more acini (both shown in the background). The foreground of the image shows the extracted skeletons containing between \num{1100} and \num{7300} nodes.
 
 \renewcommand{\imsize}{\linewidth}
-\begin{figure}
+\begin{figure}[htp]
 	\centering
-	\pgfmathsetlength{\imagewidth}{\imsize}%
-	\pgfmathsetlength{\imagescale}{\imagewidth/1541}%
-	\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
-		%\def\x{952} % scalebar-x at golden ratio of x=1541px
-		%\def\y{588} % scalebar-y at 90% of height of y=653px
-		\def\x{1300} % scalebar-x at golden ratio of x=1541px
-		\def\y{400} % scalebar-y at 90% of height of y=653px
-		\node[anchor=north west,inner sep=0pt,outer sep=0pt] at (0,0)
-			{\includegraphics[width=\imagewidth]{img/R108C21b-skeleton.png}};
-		% 796px = 4.0138mm > 100px = 504um > 99px = 500um, 20px = 100um
-		%\draw[color=red,|-|,thick] (11,341) -- (807,339) node [sloped,midway,above] {\SI{4.0138}{\milli\meter} (2712px)};
-		\draw[|-|,thick] (\x,\y) -- (\x+99,\y) node [midway,above] {\SI{500}{\micro\meter}};
-	\end{tikzpicture}%
+	\ifhtml
+	\else
+		\pgfmathsetlength{\imagewidth}{\imsize}%
+		\pgfmathsetlength{\imagescale}{\imagewidth/1541}%
+		\begin{tikzpicture}[x=\imagescale,y=-\imagescale]
+			%\def\x{952} % scalebar-x at golden ratio of x=1541px
+			%\def\y{588} % scalebar-y at 90% of height of y=653px
+			\def\x{1300} % scalebar-x at golden ratio of x=1541px
+			\def\y{400} % scalebar-y at 90% of height of y=653px
+			\node[anchor=north west, inner sep=0pt, outer sep=0pt] at (0,0)
+				{\includegraphics[width=\imagewidth]{img/R108C21b-skeleton}};
+			% 796px = 4.0138mm > 100px = 504um > 99px = 500um, 20px = 100um
+			%\draw[color=red,|-|,thick] (11,341) -- (807,339) node [sloped,midway,above] {\SI{4.0138}{\milli\meter} (2712px)};
+			\draw[|-|,thick] (\x,\y) -- (\x+99,\y) node [midway, above] {\SI{500}{\micro\meter}};
+		\end{tikzpicture}%
+	\fi
 	\caption{Visualization of rat lung sample obtained at postnatal day 21. Left: Three-dimensional view of the sample, Right: Four independent airway segments. Foreground: Extracted airway skeletons of the independent airways. The yellow skeleton contains \num{1133}, the green \num{7288}, the red \num{6513} and the blue skeleton \num{3278} nodes.}
 	\label{fig:skeleton}
 \end{figure}
 
-This big amount of skeleton points makes such a manual method no longer feasible. Current work on the extraction of structural information now focuses on the reproducibility of the skeleton extraction algorithm. We plan to conduct a morphological counting study for assessing the biological correctness of the computationally derived skeleton. Additionally, we started a collaboration with Fraunhofer MeVis, the provider of the visualization software MeVisLab, which is used for calculating the airway skeletons to adapt the skeletonization algorithm to segmentations obtained from our samples.
+This big amount of skeleton points makes a manual method for correction no longer feasible. Current work on the extraction of structural information now focuses on the reproducibility of the skeleton extraction algorithm. We plan to conduct a morphological counting study for assessing the biological correctness of the computationally derived skeleton. Additionally, we started a collaboration with Fraunhofer MeVis\footnote{Which provide the visualization software MeVisLab, used for calculating the airway skeletons} to adapt the skeletonization algorithm to segmentations obtained from our samples.
 
 \section{Publications}\label{sec:publications}
 \subsection{Publication on the enhancement of the field of view of TOMCAT}
-The planned publication on the enhancement of the field of view of TOMCAT has been delayed because of several problems. After a first version of the manuscript has been delayed because of multiple conferences and been set aside, a second version has been prepared for discussion with the coauthors. During this discussion we agreed on a slightly changed direction of the paper, which required waiting for new data from one of the coauthors. After two months we concluded that it's not possible to generate the new data the way we hoped. This data has now been generated differently and the manuscript is in the final editing stages ans should be submitted shortly.
+The planned publication on the enhancement of the field of view of TOMCAT has been delayed because of several problems. After a first version of the manuscript has been delayed because of multiple conferences and been set aside, a second version has been prepared for discussion with the coauthors. During this discussion we agreed on a slightly changed direction of the paper, which required waiting for new data from one of the coauthors. After two months we concluded that with current methods it not possible to generate the new data in the way we planned. We now use the distance transformation mentioned in section~\ref{sec:wfs} for confirmation and the manuscript~\cite{Haberthuer2010} is in the final editing stages and should be submitted shortly.
 
 \subsection{Publication on bone scans performed last year}
-Last year we made several tomographic scans of mice bones (tibia, femur and vertebrae) as part of a collaborative study. The manuscript which resulted from this collaboration has been submitted to Nature Medicine, details can be found in citation~\cite{Sausbier2009b}.
+Last year we made several tomographic scans of mice bones (tibia, femur and vertebrae) as part of a collaborative study. The manuscript which resulted from this collaboration has been submitted to Nature Medicine, details should be found soon in citation~\cite{Sausbier2009b}.
 
 \bibliographystyle{unsrtnat}
 \bibliography{../../references}
