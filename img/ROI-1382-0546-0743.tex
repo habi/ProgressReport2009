@@ -1,24 +1,26 @@
 % \documentclass{article}
-% \usepackage{tikz,pgfplots}
+% \usepackage{tikz,pgfplots,siunitx}
 % \usepackage[pdftex,active,tightpage]{preview}
+% \newcommand{\imsize}{\linewidth}
 % \begin{document}
 % \begin{preview}
 %%%%%%%%%%%%
 \begin{tikzpicture}
 
+%\pgfplotsset{every axis legend/.append style={at={(0.5,1.1)},anchor=south}}
+
 % Axis at [0.13 0.11 0.78 0.81]
 \begin{semilogyaxis}[
-% axis on top,
-% scale only axis,
-grid=both,
 width=\imsize,
-% height=3.56562in,
+grid=both,
 xmin=0, xmax=65,
 ymin=1, ymax=1e+007,
-xlabel={Thickness [\micro m]},
-ylabel={Number of Voxels},
-% title={ROI 2},
-legend entries={slow (ROI 2),med (ROI 2),fast (ROI 2)}
+xlabel={Thickness [$\micro$m]},
+ylabel={Pixel Count},
+legend entries={%
+    B ROI 2,%
+    L ROI 2,%
+    T ROI 2}
 ]
 
 \addplot [
@@ -72,7 +74,7 @@ solid
 
 \end{semilogyaxis}
 
-\end{tikzpicture}
-%%%%%%%%%%%%%
+\end{tikzpicture}%
+%%%%%%%%%%%%
 % \end{preview}
 % \end{document}
